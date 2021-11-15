@@ -57,6 +57,8 @@ public class ControladorAlumno {
         alumno.setApellido(alumnoAModificar.getApellido());
         alumno.setEdad(alumnoAModificar.getEdad());
         alumno.setSexo(alumnoAModificar.getSexo());
+        alumno.setMail(alumnoAModificar.getMail());
+        alumno.setNacionalidad(alumnoAModificar.getNacionalidad());
 
         servicioAlumno.modificarAlumno(alumno);
         return new ModelAndView("redirect:/home",model);

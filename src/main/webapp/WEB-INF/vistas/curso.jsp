@@ -72,7 +72,7 @@
             </c:if>
 
             <!--Lista De Alumnos -->
-            <c:forEach items="${listaAlumnosConCurso}" var="alumno" >
+            <%--<c:forEach items="${listaAlumnosConCurso}" var="alumno" >
                 <div class="col-12 d-flex col-md-6 col-lg-4 align-items-center mt-5 sombra rounded" style="min-height: 100px;max-width: 400px;">
                     <div class="symbol symbol-100 mr-2">
                         <img class="symbol-label" src="imagenes/perfil.png" width="110" height="100"/>
@@ -120,7 +120,65 @@
                         </form:form>
                     </div>
                 </div>
+            </c:forEach>--%>
+
+            <c:forEach items="${listaAlumnosConCurso}" var="alumno" >
+
+                <div class="col-12 d-flex col-md-6 col-lg-4 align-items-center mt-5 sombra rounded" style="min-height: 100px;max-width: 400px;">
+
+                    <div class="symbol symbol-100 mr-2  w-100 rounded">
+                        <c:if test="${alumno.sexo == 'Masculino'}">
+                            <img class="symbol-label rounded" src="imagenes/perfilHombre.png" width="110" height="80"/>
+                        </c:if>
+                        <c:if test="${alumno.sexo == 'Femenino'}">
+                            <img class="symbol-label rounded" src="imagenes/perfilMujer.png" width="110" height="80"/>
+                        </c:if>
+                        <i class="symbol-badge bg-success"></i>
+                    </div>
+
+                    <div class="d-flex flex-column w-100" >
+                        <div class=" text-decoration-none text-dark font-weight-bold font-size-h5 text-dark-75 text-hover-primary">${alumno.nombre} ${alumno.apellido}</div>
+                        <div class="text-muted mt-1">${alumno.mail}</div>
+                        <div class="text-muted mt-1">${alumno.edad} años</div>
+                    </div>
+
+                    <div class="d-flex flex-column w-100 align-items-center pl-3">
+                        <a href="alumno?alumno=${alumno.id}" class="btn btn-link text-primary text-gradient px-3 mb-0">
+                            <i class="fas fa-user-alt me-2" aria-hidden="true"></i>Perfil
+                        </a>
+                        <form:form action="quitarAlumnoDelCurso" method="POST">
+                            <button type="button" class="btn btn-link text-danger text-gradient px-3 mb-0 " data-bs-toggle="modal" data-bs-target="#exampleModalQuitarAlumno${alumno.id}">
+                                <i class="fas fa-trash-alt me-2 fs-6 fa-2x" aria-hidden="true"></i> Quitar
+                            </button>
+
+                            <!-- Modal Quitar Alumno-->
+                            <div class="modal fade" id="exampleModalQuitarAlumno${alumno.id}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header fondo-login">
+                                            <h5 class="modal-title text-white" id="exampleModalLabel">¡Estas a punto de Quitar un Alumno!</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="mb-5 mt-5 text-center">
+                                                <h5> ¿Estas seguro/a de <span class="text-uppercase font-weight-bold">quitar</span> a ${alumno.nombre} ${alumno.apellido} del curso?</h5>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <form:hidden  path="id" id="id" name="id" value="${alumno.id}"/>
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                                <button type="submit" class="btn btn-danger">Borrar</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form:form>
+
+                    </div>
+                </div>
+
             </c:forEach>
+
         </div>
     </main>
 
